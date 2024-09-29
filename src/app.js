@@ -7,13 +7,16 @@ const expressSession = require('express-session')
 const logger = require('morgan');
 const ErrorHandler = require('./utils/ErrorHandler');
 const { generatedError } = require('./middlewares/generateError');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 app.use(logger("tiny"));
 
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+
+app.use(cors({origin:true , withCredentials:true}));
 
 
 app.use(expressSession({
