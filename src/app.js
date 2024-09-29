@@ -9,6 +9,7 @@ const ErrorHandler = require('./utils/ErrorHandler');
 const { generatedError } = require('./middlewares/generateError');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const MongoStore = require('connect-mongo')
 app.use(logger("tiny"));
 
 
@@ -23,6 +24,10 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+        collectionName: 'sessions'
+    }) 
 }))
 app.use(cookieParser());
 
